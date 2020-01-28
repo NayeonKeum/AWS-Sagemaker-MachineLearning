@@ -141,14 +141,15 @@ git clone https://github.com/mintbass/sm_edu.git
     docker run -p 8888:8888 -v ~/git/sm_edu/notebooks:/home/jovyan jupyter/tensorflow-notebook
     ```
   
+    
+# Day #2
+
 ### Python 개발 툴
 * PyCharm : https://www.jetbrains.com/ko-kr/pycharm/download/#section=windows
     - Interpreter 설정
 * VSCode (Visual Studio Code) : https://code.visualstudio.com/download
     - Interpreter 설정
     
-# Day #2
-
 ### Amazon CLI(Command Line Interface)
 * Download : AWS CLI Download - https://s3.amazonaws.com/aws-cli/AWSCLI64.msi
 * Amazon CLI(Command Line Interface) 소개 및 실습 : https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/awscli-install-windows.html
@@ -163,8 +164,6 @@ Default output format [None]:
 ```
 * CLI 를 이용한 S3 사용 실습 : https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/using-s3-commands.html
 
-
-
 ### Python Library 맛보기
 * pandas 를 이용한 csv 데이터 다루기
 * boto3 를 이용한 S3 리소스 액세스
@@ -172,7 +171,6 @@ Default output format [None]:
 ### AWS Sagemaker
 * 아키텍처
 * AWS Sagemaker 서비스 구조
-* 데이터 저장소를 위한 S3 사용법
 * 시작하기 : https://docs.aws.amazon.com/sagemaker/latest/dg/gs-console.html
 
 # Day #3
