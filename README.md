@@ -1,5 +1,5 @@
 # AWS 의 Sagemaker 를 이용한 머신 러닝 시스템 구축
-##강의 홈 : https://github.com/mintbass/sm_edu
+## 강의 홈 : https://github.com/mintbass/sm_edu
 
 ### 강의에서 다룰 내용
 * AWS를 활용한 개발환경 이해하기
@@ -60,6 +60,14 @@
     - Cognito
     - IoT Core
 
+
+### Github
+* Github 설치 : https://git-scm.com/downloads
+* 학습과정 Clone 하기
+ ```
+git clone https://github.com/mintbass/sm_edu.git
+ ```
+
 ### 로컬 개발 환경 구축
 * Python 3.7 설치 : https://www.python.org/downloads/release/python-376/
 * Anaconda를 활용한 python 가상환경 설정하기 : http://bitly.kr/2DIFGaDe
@@ -68,24 +76,104 @@
     ```
     conda list
     ```
-* Jupyter 설치하기 (https://lsjsj92.tistory.com/531)
+    - 가상환경 생성
+    ```
+    conda create -n smedu pandas tensorflow
+    ```
+    - 가상환경 시작
+    ```
+    conda activate smedu
+    ```
+    - 가상환경 종료
+    ```
+    conda deactivate
+    ```
+    - 가상환경 내보내기 (export)
+    ```
+    pwd
+    /Users/mint/git/sm_edu
+    conda env export > smedu.yaml
+    ```
 
-### Github
-* Github 설치 (https://git-scm.com/downloads)
-* 학습과정 Clone 하기 (>git clone https://github.com/mintbass/sm_edu.git)
+* Jupyter 설치하기 (https://lsjsj92.tistory.com/531)
+    - 가상환경에 jupyter notebook 설치
+    ```
+    conda install jupyter notebook
+    ```
+    - jupyter notebook에서 python 패키지를 관리할 수 있도록 해주는 nb_conda 설치
+    ```
+    conda install jupyter notebook
+    ```
+    - jupyter notebook 시작하기
+    ```
+    (smedu) mint@Marcuss-MacBook-Pro sm_edu % jupyter notebook
+    [I 15:01:43.393 NotebookApp] [nb_conda_kernels] enabled, 2 kernels found
+    [W 15:01:44.295 NotebookApp] WARNING: The notebook server is listening on all IP addresses and not using encryption. This is not recommended.
+    [I 15:01:44.452 NotebookApp] [nb_conda] enabled
+    [I 15:01:44.453 NotebookApp] Serving notebooks from local directory: /Users/mint/git/sm_edu
+    [I 15:01:44.453 NotebookApp] The Jupyter Notebook is running at:
+    [I 15:01:44.453 NotebookApp] http://Marcuss-MacBook-Pro.local:8888/?token=1c427019f02e1e5a13665e157679ecd4bbf8c40ef0e2df3f
+    [I 15:01:44.453 NotebookApp]  or http://127.0.0.1:8888/?token=1c427019f02e1e5a13665e157679ecd4bbf8c40ef0e2df3f
+    [I 15:01:44.453 NotebookApp] Use Control-C to stop this server and shut down all kernels (twice to skip confirmation).
+    [C 15:01:44.476 NotebookApp]
+
+        To access the notebook, open this file in a browser:
+            file:///Users/mint/Library/Jupyter/runtime/nbserver-13592-open.html
+        Or copy and paste one of these URLs:
+            http://Marcuss-MacBook-Pro.local:8888/?token=1c427019f02e1e5a13665e157679ecd4bbf8c40ef0e2df3f
+         or http://127.0.0.1:8888/?token=1c427019f02e1e5a13665e157679ecd4bbf8c40ef0e2df3f
+    ```
+
 
 ### Docker를 이용한 개발환경 구축
-* 도커 소개 (https://subicura.com/2017/01/19/docker-guide-for-beginners-1.html)
-* Docker 설치(https://steemit.com/kr/@mystarlight/docker)
-* pycharm 개발환경 이미지 만들기(https://tobelinuxer.tistory.com/25)
-* Docker 를 활용한 jupyter 개발환경 구축하기
-
+* 도커 소개 :
+    - https://aws.amazon.com/ko/docker/ 
+    - https://subicura.com/2017/01/19/docker-guide-for-beginners-1.html
+    - https://bcho.tistory.com/805
+* Docker 설치 : https://steemit.com/kr/@mystarlight/docker
+* Docker를 활용한 jupyter 개발환경 구축하기
+    - https://www.dataquest.io/blog/docker-data-science/
+    ```
+    docker run jupyter/minimal-notebook
+    docker run -p 8888:8888 -v ~/git/sm_edu/notebooks:/home/jovyan jupyter/minimal-notebook
+    
+    docker run jupyter/tensorflow-notebook
+    docker run -p 8888:8888 -v ~/git/sm_edu/notebooks:/home/jovyan jupyter/tensorflow-notebook
+    ```
+  
+### Python 개발 툴
+* PyCharm : https://www.jetbrains.com/ko-kr/pycharm/download/#section=windows
+    - Interpreter 설정
+* VSCode (Visual Studio Code) : https://code.visualstudio.com/download
+    - Interpreter 설정
+    
 # Day #2
+
+### Amazon CLI(Command Line Interface)
+* Download : AWS CLI Download - https://s3.amazonaws.com/aws-cli/AWSCLI64.msi
+* Amazon CLI(Command Line Interface) 소개 및 실습 : https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/awscli-install-windows.html
+* 빠른 시작 : https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/cli-chap-getting-started.html
+* 프로파일 등록
+```
+aws configure
+AWS Access Key ID [None]: AKIAI44QH8DHBEXAMPLE
+AWS Secret Access Key [None]: je7MtGbClwBF/2Zp9Utk/h3yCo8nvbEXAMPLEKEY
+Default region name [None]: ap-northeast-2
+Default output format [None]: 
+```
+* CLI 를 이용한 S3 사용 실습 : https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/using-s3-commands.html
+
+
+
+### Python Library 맛보기
+* pandas 를 이용한 csv 데이터 다루기
+* boto3 를 이용한 S3 리소스 액세스
+
 ### AWS Sagemaker
 * 아키텍처
 * AWS Sagemaker 서비스 구조
 * 데이터 저장소를 위한 S3 사용법
-* 시작하기 (https://docs.aws.amazon.com/sagemaker/latest/dg/gs-console.html)
+* 시작하기 : https://docs.aws.amazon.com/sagemaker/latest/dg/gs-console.html
 
 # Day #3
 ### Sagemaker 를 이용한 데이터 훈련 및 테스트 실습
@@ -94,8 +182,6 @@
 
 # Day #4
 ### Sagemaker 를 이용한 데이터 훈련 및 테스트 실습
-* pandas 를 이용한 csv 데이터 다루기
-* boto3 를 이용한 S3 리소스 액세스
 * DeepAR 을 이용한 시계열 데이터 예측 실습
 
 
