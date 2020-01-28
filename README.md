@@ -130,7 +130,7 @@ git clone https://github.com/mintbass/sm_edu.git
     - https://aws.amazon.com/ko/docker/ 
     - https://subicura.com/2017/01/19/docker-guide-for-beginners-1.html
     - https://bcho.tistory.com/805
-* Docker 설치 : https://steemit.com/kr/@mystarlight/docker
+* Docker 설치 : https://github.com/docker/toolbox/releases
 * Docker를 활용한 jupyter 개발환경 구축하기
     - https://www.dataquest.io/blog/docker-data-science/
     ```
