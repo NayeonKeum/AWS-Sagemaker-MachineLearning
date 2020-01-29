@@ -165,12 +165,21 @@ Default output format [None]:
 * CLI 를 이용한 S3 사용 실습 : https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/using-s3-commands.html
 
 ### Python Library 맛보기
-* pandas 를 이용한 csv 데이터 다루기
+* pandas
+    - Dataframe 다루기 : https://3months.tistory.com/292
+    - csv 데이터 다루기
 * boto3 를 이용한 S3 리소스 액세스
+    - conda install boto3
+    - S3에 버킷 만들기 (smedu)
+    - IAM을 이용한 액세스 키 생성하기
+    - aws configure 를 이용해서 AWS 프로파일 생성
+    - boto3_S3_access.py 실행
 
+    
 ### AWS Sagemaker
 * 아키텍처
 * AWS Sagemaker 서비스 구조
+    - ![Archiecture](./res/architecture.jpg)
 * 시작하기 : https://docs.aws.amazon.com/sagemaker/latest/dg/gs-console.html
 
 # Day #3
