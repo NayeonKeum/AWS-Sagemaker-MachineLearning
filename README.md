@@ -177,10 +177,10 @@ Default output format [None]:
 
     
 ### AWS Sagemaker
-* 아키텍처
-    - ![Archiecture](./res/architecture.png)
 * AWS Sagemaker 서비스 구조
     - ![Service](./res/sm-service.png)
+* 아키텍처
+    - ![Archiecture](./res/architecture.png)
         
 * 시작하기 : https://docs.aws.amazon.com/sagemaker/latest/dg/gs-console.html
 
