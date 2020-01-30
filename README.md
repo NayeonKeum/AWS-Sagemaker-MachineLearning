@@ -1,6 +1,22 @@
 # AWS 의 Sagemaker 를 이용한 머신 러닝 시스템 구축
 ## 강의 홈 : https://github.com/mintbass/sm_edu
 
+https://731495350882.signin.aws.amazon.com/console 
+ 
+편혜선 sm1 / tnraud 
+이지현 sm2 / tnraud 
+황유진 sm3 / tnraud 
+박시은 sm4 / tnraud 
+문정현 sm5 / tnraud 
+서희 sm6 / tnraud 
+최가희 sm7 / tnraud 
+신희원 sm8 / tnraud 
+김민정 sm9 / tnraud 
+김현진 sm10 / tnraud 
+윤재은 sm11 / tnraud 
+조은비 sm12 / tnraud 
+
+
 ### 강의에서 다룰 내용
 * AWS를 활용한 개발환경 이해하기
 * AWS IAM을 이용한 루트키 및 액세스 키 관리화기
