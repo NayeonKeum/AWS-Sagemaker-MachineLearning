@@ -15,7 +15,9 @@ https://469432985395.signin.aws.amazon.com/console
 * 김현진 sm10 / tnraud 
 * 윤재은 sm11 / tnraud 
 * 조은비 sm12 / tnraud 
-
+* 김민지 sm13 / tnraud 
+* 이하람 sm14 / tnraud 
+* 장성은 sm15 / tnraud 
 
 ### 강의에서 다룰 내용
 * AWS를 활용한 개발환경 이해하기
