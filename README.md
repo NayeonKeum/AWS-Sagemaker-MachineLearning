@@ -1,7 +1,7 @@
 # AWS 의 Sagemaker 를 이용한 머신 러닝 시스템 구축
 ## 강의 홈 : https://github.com/mintbass/sm_edu
 
-https://731495350882.signin.aws.amazon.com/console 
+https://469432985395.signin.aws.amazon.com/console
  
 * 편혜선 sm1 / tnraud 
 * 이지현 sm2 / tnraud 
