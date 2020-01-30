@@ -3,25 +3,6 @@
 
 https://469432985395.signin.aws.amazon.com/console
  
-* AKIAW2TDC44ZXRBKHBHK
-* s1QUDKmwTH8Tfc89yIDs5zeQSoHtK4fZXC3DAw0V
-
-* 편혜선 sm1 / tnraud 
-* 이지현 sm2 / tnraud 
-* 황유진 sm3 / tnraud 
-* 박시은 sm4 / tnraud 
-* 문정현 sm5 / tnraud 
-* 서희 sm6 / tnraud 
-* 최가희 sm7 / tnraud 
-* 신희원 sm8 / tnraud 
-* 김민정 sm9 / tnraud 
-* 김현진 sm10 / tnraud 
-* 윤재은 sm11 / tnraud 
-* 조은비 sm12 / tnraud 
-* 김민지 sm13 / tnraud 
-* 이하람 sm14 / tnraud 
-* 장성은 sm15 / tnraud 
-
 ### 강의에서 다룰 내용
 * AWS를 활용한 개발환경 이해하기
 * AWS IAM을 이용한 루트키 및 액세스 키 관리화기
