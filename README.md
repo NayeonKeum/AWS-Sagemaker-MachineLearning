@@ -3,6 +3,9 @@
 
 https://469432985395.signin.aws.amazon.com/console
  
+* AKIAW2TDC44ZXRBKHBHK
+* s1QUDKmwTH8Tfc89yIDs5zeQSoHtK4fZXC3DAw0V
+
 * 편혜선 sm1 / tnraud 
 * 이지현 sm2 / tnraud 
 * 황유진 sm3 / tnraud 
