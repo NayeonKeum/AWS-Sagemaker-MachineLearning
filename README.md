@@ -1,7 +1,6 @@
 # AWS 의 Sagemaker 를 이용한 머신 러닝 시스템 구축
 ## 강의 홈 : https://github.com/mintbass/sm_edu
 
-https://469432985395.signin.aws.amazon.com/console
  
 ### 강의에서 다룰 내용
 * AWS를 활용한 개발환경 이해하기
