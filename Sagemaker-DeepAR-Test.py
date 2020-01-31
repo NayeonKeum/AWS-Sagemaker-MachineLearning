@@ -74,7 +74,7 @@ sagemaker_session = sagemaker.Session(boto_session=boto3.Session(),sagemaker_cli
 # In[72]:
 
 
-s3_bucket = 'vpp-forecast-sagemaker2'  # replace with an existing bucket if needed
+s3_bucket = 'smedu-2021-mintbass'  # replace with an existing bucket if needed
 s3_prefix = 'deepar-electricity-usage'    # prefix used for all data stored within the bucket
 
 
@@ -82,7 +82,7 @@ s3_prefix = 'deepar-electricity-usage'    # prefix used for all data stored with
 #role = get_execution_role() # IAM role to use by SageMaker
 
 
-role="arn:aws:iam::022399919362:role/MeterForecast-SageMakerIamRole-11Y2RB97CKMRM"
+role="arn:aws:iam::469432985395:role/service-role/AmazonSageMaker-ExecutionRole-20200130T191405"
 print(role)
 
 
@@ -92,18 +92,22 @@ print(role)
 
 #region = sagemaker_session.boto_region_name
 region = boto3.Session().region_name
-
+print(region)
 
 s3_data_path = "s3://{}/{}/data".format(s3_bucket, s3_prefix)
 s3_output_path = "s3://{}/{}/output".format(s3_bucket, s3_prefix)
 
-
+print(s3_data_path)
+print(s3_output_path)
 # Next, we configure the container image to be used for the region that we are running in.
 
 # In[74]:
 
 
 image_name = sagemaker.amazon.amazon_estimator.get_image_uri(region, "forecasting-deepar", "latest")
+
+print(image_name)
+
 
 
 # ### Import electricity dataset and upload it to S3 to make it available for Sagemaker
@@ -162,22 +166,15 @@ for n in rid_targets:
     i += 1
 
 
-# Let us plot the resulting time series for the first ten customers for the time period spanning the first two weeks of 2014.
-
-"""
 fig, axs = plt.subplots(1, 2, figsize=(30, 20), sharex=True)
 axx = axs.ravel()
 for i in range(0, 1):
     timeseries[i].loc["2019-11-01":"2019-11-14"].plot(ax=axx[i])
     axx[i].set_xlabel("Timestamp")
     axx[i].set_ylabel("kW consumption")
-"""
+plt.show()
 
-# ### Train and Test splits
-#
-# Often times one is interested in evaluating the model or tuning its hyperparameters by looking at error metrics on a hold-out test set. Here we split the available data into train and test sets for evaluating the trained model. For standard machine learning tasks such as classification and regression, one typically obtains this split by randomly separating examples into train and test sets. However, in forecasting it is important to do this train/test split based on time rather than by time series.
-#
-# In this example, we will reserve the last section of each of the time series for evalutation purpose and use only the first part as training data.
+
 
 # we predict for 7 days
 prediction_length = 7 * 24
@@ -242,6 +239,8 @@ def write_dicts_to_file(path, data):
 write_dicts_to_file("train.json", training_data)
 write_dicts_to_file("test.json", test_data)
 
+
+
 s3 = boto3.resource('s3')
 
 
@@ -269,10 +268,6 @@ def copy_to_s3(local_file, s3_path, override=False):
 copy_to_s3("train.json", s3_data_path + "/train/train.json")
 copy_to_s3("test.json", s3_data_path + "/test/test.json")
 
-# Let's have a look to what we just wrote to S3.
-
-# In[88]:
-
 
 s3filesystem = s3fs.S3FileSystem()
 with s3filesystem.open(s3_data_path + "/train/train.json", 'rb') as fp:
@@ -290,10 +285,6 @@ estimator = sagemaker.estimator.Estimator(
     output_path=s3_output_path
 )
 
-# Next we need to set the hyperparameters for the training job. For example frequency of the time series used, number of data points the model will look at in the past, number of predicted data points. The other hyperparameters concern the model to train (number of layers, number of cells per layer, likelihood function) and the training options (number of epochs, batch size, learning rate...). We use default parameters for every optional parameter in this case (you can always use [Sagemaker Automated Model Tuning](https://aws.amazon.com/blogs/aws/sagemaker-automatic-model-tuning/) to tune them).
-
-# In[90]:
-
 
 hyperparameters = {
     "time_freq": freq,
@@ -305,24 +296,14 @@ hyperparameters = {
     "prediction_length": str(prediction_length)
 }
 
-# In[91]:
-
-
 estimator.set_hyperparameters(**hyperparameters)
-
-# We are ready to launch the training job. SageMaker will start an EC2 instance, download the data from S3, start training the model and save the trained model.
-#
-# If you provide the `test` data channel as we do in this example, DeepAR will also calculate accuracy metrics for the trained model on this test. This is done by predicting the last `prediction_length` points of each time-series in the test set and comparing this to the actual value of the time-series.
-#
-# **Note:** the next cell may take a few minutes to complete, depending on data size, model complexity, training options.
-
-# In[92]:
 
 
 data_channels = {
     "train": "{}/train/".format(s3_data_path),
     "test": "{}/test/".format(s3_data_path)
 }
+
 
 estimator.fit(
     inputs=data_channels, wait=True)
@@ -450,114 +431,3 @@ for n in rid_targets:
         print('Error occurred', ex)
 
     i += 1
-
-
-# Below we define a plotting function that queries the model and displays the forecast.
-
-# In[98]:
-
-
-def plot(
-        predictor,
-        target_ts,
-        cat=None,
-        dynamic_feat=None,
-        forecast_date=end_training,
-        show_samples=False,
-        plot_history=7 * 12,
-        confidence=80
-):
-    print("calling served model to generate predictions starting from {}".format(str(forecast_date)))
-    assert (confidence > 50 and confidence < 100)
-    low_quantile = 0.5 - confidence * 0.005
-    up_quantile = confidence * 0.005 + 0.5
-
-    # we first construct the argument to call our model
-    args = {
-        "ts": target_ts[:forecast_date],
-        "return_samples": show_samples,
-        "quantiles": [low_quantile, 0.5, up_quantile],
-        "num_samples": 100
-    }
-
-    if dynamic_feat is not None:
-        args["dynamic_feat"] = dynamic_feat
-        fig = plt.figure(figsize=(20, 6))
-        ax = plt.subplot(2, 1, 1)
-    else:
-        fig = plt.figure(figsize=(20, 3))
-        ax = plt.subplot(1, 1, 1)
-
-    if cat is not None:
-        args["cat"] = cat
-        ax.text(0.9, 0.9, 'cat = {}'.format(cat), transform=ax.transAxes)
-
-    # call the end point to get the prediction
-    prediction = predictor.predict(**args)
-
-    # plot the samples
-    if show_samples:
-        for key in prediction.keys():
-            if "sample" in key:
-                prediction[key].plot(color='lightskyblue', alpha=0.2, label='_nolegend_')
-
-    # plot the target
-    target_section = target_ts[forecast_date - plot_history:forecast_date + prediction_length]
-    target_section.plot(color="black", label='target')
-
-    # plot the confidence interval and the median predicted
-    ax.fill_between(
-        prediction[str(low_quantile)].index,
-        prediction[str(low_quantile)].values,
-        prediction[str(up_quantile)].values,
-        color="b", alpha=0.3, label='{}% confidence interval'.format(confidence)
-    )
-    prediction["0.5"].plot(color="b", label='P50')
-    ax.legend(loc=2)
-
-    # fix the scale as the samples may change it
-    ax.set_ylim(target_section.min() * 0.5, target_section.max() * 1.5)
-
-    if dynamic_feat is not None:
-        for i, f in enumerate(dynamic_feat, start=1):
-            ax = plt.subplot(len(dynamic_feat) * 2, 1, len(dynamic_feat) + i, sharex=ax)
-            feat_ts = pd.Series(
-                index=pd.DatetimeIndex(start=target_ts.index[0], freq=target_ts.index.freq, periods=len(f)),
-                data=f
-            )
-            feat_ts[forecast_date - plot_history:forecast_date + prediction_length].plot(ax=ax, color='g')
-
-
-# We can interact with the function previously defined, to look at the forecast of any customer at any point in (future) time.
-#
-# For each request, the predictions are obtained by calling our served model on the fly.
-#
-# Here we forecast the consumption of an office after week-end (note the lower week-end consumption).
-# You can select any time series and any forecast date, just click on `Run Interact` to generate the predictions from our served endpoint and see the plot.
-
-# In[99]:
-
-
-style = {'description_width': 'initial'}
-
-
-# In[100]:
-
-
-@interact_manual(
-    customer_id=IntSlider(min=0, max=369, value=91, style=style),
-    forecast_day=IntSlider(min=0, max=100, value=51, style=style),
-    confidence=IntSlider(min=60, max=95, value=80, step=5, style=style),
-    history_weeks_plot=IntSlider(min=1, max=20, value=1, style=style),
-    show_samples=Checkbox(value=False),
-    continuous_update=False
-)
-def plot_interact(customer_id, forecast_day, confidence, history_weeks_plot, show_samples):
-    plot(
-        predictor,
-        target_ts=timeseries[customer_id],
-        forecast_date=end_training + datetime.timedelta(days=forecast_day),
-        show_samples=show_samples,
-        plot_history=history_weeks_plot * 12 * 7,
-        confidence=confidence
-    )
