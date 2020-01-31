@@ -193,8 +193,12 @@ Default output format [None]:
 # Day #4
 * DeepAR 을 이용한 시계열 데이터 예측 on 로컬 컴퓨터 실습
 
+* How DeepAR works : https://docs.aws.amazon.com/ko_kr/sagemaker/latest/dg/deepar_how-it-works.html 
+* AWS Sagemaker Examples : https://github.com/awslabs/amazon-sagemaker-examples
+
 * Image classfying (https://aws.amazon.com/blogs/machine-learning/classify-your-own-images-using-amazon-sagemaker/)
-* AWS Sagemaker Examples (https://github.com/awslabs/amazon-sagemaker-examples)
+
+
 
 
 
