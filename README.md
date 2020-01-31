@@ -187,12 +187,14 @@ Default output format [None]:
 
 # Day #3
 ### Sagemaker 를 이용한 데이터 훈련 및 테스트 실습
-* AWS Sagemaker Examples (https://github.com/awslabs/amazon-sagemaker-examples)
-* Image classfying (https://aws.amazon.com/blogs/machine-learning/classify-your-own-images-using-amazon-sagemaker/)
+* DeepAR 을 이용한 시계열 데이터 예측 on Sagemaker Jupyter Notebook 실습
+* DeepAR 을 이용한 시계열 데이터 예측 on 로컬 컴퓨터 실습
 
 # Day #4
-### Sagemaker 를 이용한 데이터 훈련 및 테스트 실습
-* DeepAR 을 이용한 시계열 데이터 예측 실습
+* DeepAR 을 이용한 시계열 데이터 예측 on 로컬 컴퓨터 실습
+
+* Image classfying (https://aws.amazon.com/blogs/machine-learning/classify-your-own-images-using-amazon-sagemaker/)
+* AWS Sagemaker Examples (https://github.com/awslabs/amazon-sagemaker-examples)
 
 
 
