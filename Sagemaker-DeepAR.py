@@ -242,9 +242,8 @@ def write_dicts_to_file(path, data):
 write_dicts_to_file("train.json", training_data)
 write_dicts_to_file("test.json", test_data)
 
+
 s3 = boto3.resource('s3')
-
-
 def copy_to_s3(local_file, s3_path, override=False):
     assert s3_path.startswith('s3://')
     split = s3_path.split('/')

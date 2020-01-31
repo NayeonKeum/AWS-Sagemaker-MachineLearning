@@ -1,23 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# # SageMaker/DeepAR demo on electricity dataset
-#
-# This notebook complements the [DeepAR introduction notebook](https://github.com/awslabs/amazon-sagemaker-examples/blob/master/introduction_to_amazon_algorithms/deepar_synthetic/deepar_synthetic.ipynb).
-#
-# Here, we will consider a real use case and show how to use DeepAR on SageMaker for predicting energy consumption of 370 customers over time, based on a [dataset](https://archive.ics.uci.edu/ml/datasets/ElectricityLoadDiagrams20112014) that was used in the academic papers [[1](https://media.nips.cc/nipsbooks/nipspapers/paper_files/nips29/reviews/526.html)] and [[2](https://arxiv.org/abs/1704.04110)].
-#
-# In particular, we will see how to:
-# * Prepare the dataset
-# * Use the SageMaker Python SDK to train a DeepAR model and deploy it
-# * Make requests to the deployed model to obtain forecasts interactively
-# * Illustrate advanced features of DeepAR: missing values, additional time features, non-regular frequencies and category information
-#
-# Running this notebook takes around 40 min on a ml.c4.2xlarge for the training, and inference is done on a ml.m4.xlarge (the usage time will depend on how long you leave your served model running).
-#
-# For more information see the DeepAR [documentation](https://docs.aws.amazon.com/sagemaker/latest/dg/deepar.html) or [paper](https://arxiv.org/abs/1704.04110),
-
-# In[69]:
 from __future__ import print_function
 
 
@@ -60,9 +40,6 @@ boto3.setup_default_session(profile_name='default',region_name='us-east-2')
 
 smclient = boto3.Session().client('sagemaker')
 
-
-boto3.Session().client('sagemaker')
-
 sagemaker_session = sagemaker.Session(boto_session=boto3.Session(),sagemaker_client=smclient)
 
 
@@ -86,11 +63,6 @@ role="arn:aws:iam::469432985395:role/service-role/AmazonSageMaker-ExecutionRole-
 print(role)
 
 
-
-# In[73]:
-
-
-#region = sagemaker_session.boto_region_name
 region = boto3.Session().region_name
 print(region)
 
@@ -99,16 +71,15 @@ s3_output_path = "s3://{}/{}/output".format(s3_bucket, s3_prefix)
 
 print(s3_data_path)
 print(s3_output_path)
+
+
 # Next, we configure the container image to be used for the region that we are running in.
 
 # In[74]:
 
 
 image_name = sagemaker.amazon.amazon_estimator.get_image_uri(region, "forecasting-deepar", "latest")
-
 print(image_name)
-
-
 
 # ### Import electricity dataset and upload it to S3 to make it available for Sagemaker
 
@@ -166,6 +137,8 @@ for n in rid_targets:
     i += 1
 
 
+# Let us plot the resulting time series for the first ten customers for the time period spanning the first two weeks of 2014.
+
 fig, axs = plt.subplots(1, 2, figsize=(30, 20), sharex=True)
 axx = axs.ravel()
 for i in range(0, 1):
@@ -173,6 +146,7 @@ for i in range(0, 1):
     axx[i].set_xlabel("Timestamp")
     axx[i].set_ylabel("kW consumption")
 plt.show()
+
 
 
 
@@ -240,10 +214,7 @@ write_dicts_to_file("train.json", training_data)
 write_dicts_to_file("test.json", test_data)
 
 
-
 s3 = boto3.resource('s3')
-
-
 def copy_to_s3(local_file, s3_path, override=False):
     assert s3_path.startswith('s3://')
     split = s3_path.split('/')
@@ -285,6 +256,10 @@ estimator = sagemaker.estimator.Estimator(
     output_path=s3_output_path
 )
 
+# Next we need to set the hyperparameters for the training job. For example frequency of the time series used, number of data points the model will look at in the past, number of predicted data points. The other hyperparameters concern the model to train (number of layers, number of cells per layer, likelihood function) and the training options (number of epochs, batch size, learning rate...). We use default parameters for every optional parameter in this case (you can always use [Sagemaker Automated Model Tuning](https://aws.amazon.com/blogs/aws/sagemaker-automatic-model-tuning/) to tune them).
+
+# In[90]:
+
 
 hyperparameters = {
     "time_freq": freq,
@@ -296,14 +271,24 @@ hyperparameters = {
     "prediction_length": str(prediction_length)
 }
 
+# In[91]:
+
+
 estimator.set_hyperparameters(**hyperparameters)
+
+# We are ready to launch the training job. SageMaker will start an EC2 instance, download the data from S3, start training the model and save the trained model.
+#
+# If you provide the `test` data channel as we do in this example, DeepAR will also calculate accuracy metrics for the trained model on this test. This is done by predicting the last `prediction_length` points of each time-series in the test set and comparing this to the actual value of the time-series.
+#
+# **Note:** the next cell may take a few minutes to complete, depending on data size, model complexity, training options.
+
+# In[92]:
 
 
 data_channels = {
     "train": "{}/train/".format(s3_data_path),
     "test": "{}/test/".format(s3_data_path)
 }
-
 
 estimator.fit(
     inputs=data_channels, wait=True)
@@ -431,3 +416,4 @@ for n in rid_targets:
         print('Error occurred', ex)
 
     i += 1
+
