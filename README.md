@@ -10,7 +10,6 @@
 * 로컬 컴퓨터를 이용한 머신 러닝 개발 환경 이해하기
 * Anaconda 를 활용한 python 가상환경 이해하기
 * Jupyter notebook 개발환경 이해하기
-* Docker 를 이용한 개발환경 구축 이해하기
 * AWS Sagemaker 이해하기
 * AWS S3 활용법 이해하기
 * 시계열 데이터 예측을 위한 DeepAR 알고리듬 이해하기
@@ -19,6 +18,8 @@
 
 
 # Day #1
+
+# Class #1
 
 ### AWS 계정 준비
 * AWS 접속 및 크레딧 확인
@@ -124,26 +125,9 @@ git clone https://github.com/mintbass/sm_edu.git
             http://Marcuss-MacBook-Pro.local:8888/?token=1c427019f02e1e5a13665e157679ecd4bbf8c40ef0e2df3f
          or http://127.0.0.1:8888/?token=1c427019f02e1e5a13665e157679ecd4bbf8c40ef0e2df3f
     ```
-
-
-### Docker를 이용한 개발환경 구축
-* 도커 소개 :
-    - https://aws.amazon.com/ko/docker/ 
-    - https://subicura.com/2017/01/19/docker-guide-for-beginners-1.html
-    - https://bcho.tistory.com/805
-* Docker 설치 : https://github.com/docker/toolbox/releases
-* Docker를 활용한 jupyter 개발환경 구축하기
-    - https://www.dataquest.io/blog/docker-data-science/
-    ```
-    docker run jupyter/minimal-notebook
-    docker run -p 8888:8888 -v ~/git/sm_edu/notebooks:/home/jovyan jupyter/minimal-notebook
-    
-    docker run jupyter/tensorflow-notebook
-    docker run -p 8888:8888 -v ~/git/sm_edu/notebooks:/home/jovyan jupyter/tensorflow-notebook
-    ```
   
     
-# Day #2
+# Class #2
 
 ### Python 개발 툴
 * PyCharm : https://www.jetbrains.com/ko-kr/pycharm/download/#section=windows
@@ -176,7 +160,9 @@ Default output format [None]:
     - aws configure 를 이용해서 AWS 프로파일 생성
     - boto3_S3_access.py 실행
 
-    
+# Day #2
+
+# Class #1
 ### AWS Sagemaker
 * AWS Sagemaker 서비스 구조
     - ![Service](./res/sm-service.png)
@@ -185,20 +171,13 @@ Default output format [None]:
         
 * 시작하기 : https://docs.aws.amazon.com/sagemaker/latest/dg/gs-console.html
 
-# Day #3
 ### Sagemaker 를 이용한 데이터 훈련 및 테스트 실습
 * DeepAR 을 이용한 시계열 데이터 예측 on Sagemaker Jupyter Notebook 실습
-* DeepAR 을 이용한 시계열 데이터 예측 on 로컬 컴퓨터 실습
 
-# Day #4
+# Class #2
 * DeepAR 을 이용한 시계열 데이터 예측 on 로컬 컴퓨터 실습
 
 * How DeepAR works : https://docs.aws.amazon.com/ko_kr/sagemaker/latest/dg/deepar_how-it-works.html 
 * AWS Sagemaker Examples : https://github.com/awslabs/amazon-sagemaker-examples
-
 * Image classfying (https://aws.amazon.com/blogs/machine-learning/classify-your-own-images-using-amazon-sagemaker/)
-
-
-
-
 
