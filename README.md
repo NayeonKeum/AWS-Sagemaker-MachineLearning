@@ -33,9 +33,9 @@
     - IAM 을 이용한 계정 및 액세스키 관리
 
 * AWS CLI 를 이용한 AWS 리소스 액세스
-    - Putty Windows 64bit Download : https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.70-installer.msi
-    - AWS CLI Download : https://s3.amazonaws.com/aws-cli/AWSCLI64.msi
-    - Amazon CLI(Command Line Interface) 소개 및 실습 : https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/awscli-install-windows.html
+    - Putty Download : https://www.putty.org/
+    - AWS CLI Download : https://aws.amazon.com/ko/cli/
+    - Amazon CLI(Command Line Interface) 소개 및 실습 : https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/cli-chap-welcome.html
     - 빠른 시작: https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/cli-chap-getting-started.html
     - CLI 를 이용한 S3 사용 실습: https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/using-s3-commands.html
 
@@ -71,8 +71,8 @@ git clone https://github.com/mintbass/sm_edu.git
  ```
 
 ### 로컬 개발 환경 구축
-* Python 3.7 설치 : https://www.python.org/downloads/release/python-376/
-* Anaconda를 활용한 python 가상환경 설정하기 : http://bitly.kr/2DIFGaDe
+* Python 3.7 설치 : https://www.python.org/downloads/
+* Anaconda를 활용한 python 가상환경 설정하기 : https://teddylee777.github.io/python/anaconda-%EA%B0%80%EC%83%81%ED%99%98%EA%B2%BD%EC%84%A4%EC%A0%95-%ED%8C%81-%EA%B0%95%EC%A2%8C
     - Anaconda 설치 : https://www.anaconda.com/distribution/
     - 패키지 목록 보기
     ```
@@ -136,14 +136,14 @@ git clone https://github.com/mintbass/sm_edu.git
     - Interpreter 설정
     
 ### Amazon CLI(Command Line Interface)
-* Download : AWS CLI Download - https://s3.amazonaws.com/aws-cli/AWSCLI64.msi
-* Amazon CLI(Command Line Interface) 소개 및 실습 : https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/awscli-install-windows.html
+* Download : AWS CLI Download - https://aws.amazon.com/ko/cli/
+* Amazon CLI(Command Line Interface) 소개 및 실습 : https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/cli-chap-welcome.html
 * 빠른 시작 : https://docs.aws.amazon.com/ko_kr/cli/latest/userguide/cli-chap-getting-started.html
 * 프로파일 등록
 ```
 aws configure
-AWS Access Key ID [None]: AKIAI44QH8DHBEXAMPLE
-AWS Secret Access Key [None]: je7MtGbClwBF/2Zp9Utk/h3yCo8nvbEXAMPLEKEY
+AWS Access Key ID [None]: AKIAI44QH8EXAMPLE
+AWS Secret Access Key [None]: je7MtGb3yCo8nvbEXAMPLEKEY
 Default region name [None]: ap-northeast-2
 Default output format [None]: 
 ```
