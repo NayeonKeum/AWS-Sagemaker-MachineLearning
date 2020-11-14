@@ -160,6 +160,10 @@ Default output format [None]:
     - aws configure 를 이용해서 AWS 프로파일 생성
     - boto3_S3_access.py 실행
 
+### 숙제
+* Jupyter notebook 에서 Pandas 실습 파일 만들기
+* Pandas 실습 : https://doorbw.tistory.com/172
+
 # Day #2
 
 # Class #1
