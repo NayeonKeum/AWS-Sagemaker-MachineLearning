@@ -177,6 +177,7 @@ Default output format [None]:
 
 ### Sagemaker 를 이용한 데이터 훈련 및 테스트 실습
 * DeepAR 을 이용한 시계열 데이터 예측 on Sagemaker Jupyter Notebook 실습
+* 자습서 : https://aws.amazon.com/ko/getting-started/hands-on/build-train-deploy-machine-learning-model-sagemaker/
 
 # Class #2
 * DeepAR 을 이용한 시계열 데이터 예측 on 로컬 컴퓨터 실습
