@@ -4,10 +4,10 @@ import boto3
 import numpy as np
 import pandas as pd
 
-bucket = "vpp-export"   # Modify for you
-prefix = "v1/data/"     # Modify for you
+bucket = "smedu-20201114-std25"   # Modify for you
+prefix = "/"     # Modify for you
 
-boto3.setup_default_session(profile_name='vpp')
+boto3.setup_default_session(profile_name='default')
 
 client = boto3.client('s3')
 
