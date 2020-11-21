@@ -61,7 +61,7 @@ boto3.setup_default_session(profile_name='default',region_name='us-east-2')
 smclient = boto3.Session().client('sagemaker')
 
 
-boto3.Session().client('sagemaker')
+# boto3.Session().client('sagemaker')
 
 sagemaker_session = sagemaker.Session(boto_session=boto3.Session(),sagemaker_client=smclient)
 
@@ -74,15 +74,14 @@ sagemaker_session = sagemaker.Session(boto_session=boto3.Session(),sagemaker_cli
 # In[72]:
 
 
-s3_bucket = 'vpp-forecast-sagemaker2'  # replace with an existing bucket if needed
-s3_prefix = 'deepar-electricity-usage'    # prefix used for all data stored within the bucket
+s3_bucket = 'sagemaker-us-east-2-469432985395'  # replace with an existing bucket if needed
+s3_prefix = 'smedu'    # prefix used for all data stored within the bucket
 
 
 
 #role = get_execution_role() # IAM role to use by SageMaker
 
-
-role="arn:aws:iam::022399919362:role/MeterForecast-SageMakerIamRole-11Y2RB97CKMRM"
+role="arn:aws:iam::469432985395:role/service-role/AmazonSageMaker-ExecutionRole-20201121T104674"
 print(role)
 
 
@@ -92,7 +91,7 @@ print(role)
 
 #region = sagemaker_session.boto_region_name
 region = boto3.Session().region_name
-
+print(region)
 
 s3_data_path = "s3://{}/{}/data".format(s3_bucket, s3_prefix)
 s3_output_path = "s3://{}/{}/output".format(s3_bucket, s3_prefix)
@@ -112,7 +111,7 @@ image_name = sagemaker.amazon.amazon_estimator.get_image_uri(region, "forecastin
 
 freq = '1H'
 
-local_data_dir_path = "./data/"
+local_data_dir_path = "../data/"
 rid_targets = {}
 def find_rid_targets(dirname):
 
@@ -203,7 +202,7 @@ end_training = pd.Timestamp(end_training_time, freq=freq)
 training_data = [
     {
         "start": str(start_dataset),
-        "target": ts[start_dataset:end_training - 1].tolist()  # We use -1, because pandas indexing includes the upper bound
+        "target": ts[start_dataset:end_training - 1*start_dataset.freq].tolist()  # We use -1, because pandas indexing includes the upper bound
     }
     for ts in timeseries
 ]
@@ -218,12 +217,14 @@ print(len(training_data))
 
 num_test_windows = 4
 
+
+end=(num_test_windows + 1*2)
 test_data = [
     {
         "start": str(start_dataset),
-        "target": ts[start_dataset:end_training + k * prediction_length].tolist()
+        "target": ts[start_dataset:end_training + k * prediction_length * start_dataset.freq].tolist()
     }
-    for k in range(1, num_test_windows + 1)
+    for k in range(1, end)
     for ts in timeseries
 ]
 print(len(test_data))
